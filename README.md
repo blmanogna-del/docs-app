@@ -11,6 +11,10 @@ A small collaborative document editor inspired by Google Docs. Users can log in,
 - Share a document with another user as **Viewer** (read-only) or **Editor**
 - Dashboard split into "Owned by me" and "Shared with me"
 
+## Live demo
+
+https://docs-app-i922.onrender.com
+
 ## Tech stack
 
 - **Backend:** Python, FastAPI, SQLite (SQLModel)
