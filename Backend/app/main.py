@@ -1,6 +1,9 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from sqlmodel import Session, select
 
@@ -70,3 +73,19 @@ def list_other_users(
     return session.exec(
         select(User).where(User.id != current_user.id).order_by(User.name)
     ).all()
+
+
+# ---- Serve the built frontend (only exists in the deployed Docker image) ----
+STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
+
+if STATIC_DIR.is_dir():
+    app.mount("/assets", StaticFiles(directory=STATIC_DIR / "assets"), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def serve_frontend(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Not found")
+        candidate = (STATIC_DIR / full_path).resolve()
+        if full_path and candidate.is_file() and STATIC_DIR.resolve() in candidate.parents:
+            return FileResponse(candidate)
+        return FileResponse(STATIC_DIR / "index.html")
