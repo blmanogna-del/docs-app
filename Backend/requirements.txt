@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+PyJWT
+bcrypt
+python-multipart
+markdown
+mammoth
+nh3
