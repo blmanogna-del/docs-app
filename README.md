@@ -15,6 +15,10 @@ A small collaborative document editor inspired by Google Docs. Users can log in,
 
 https://docs-app-i922.onrender.com
 
+> **Note for reviewers:** this app runs on a free hosting tier that goes to sleep after about 15 minutes without visitors. If the page looks blank or keeps loading, **please wait up to 60 seconds** and it will appear. Once it is awake, it loads normally.
+>
+> Data also resets whenever the service restarts. The demo accounts (Alice, Bob, Carol) are recreated automatically, so you can always log in with the credentials listed below.
+
 ## Tech stack
 
 - **Backend:** Python, FastAPI, SQLite (SQLModel)
